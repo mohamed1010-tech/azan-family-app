@@ -9,16 +9,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # استنسخ الريبو
     - uses: actions/checkout@v3
 
+    # ثبت Flutter
     - uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.22.0'
 
+    # جلب المكتبات
     - run: flutter pub get
+
+    # بناء APK للإصدار النهائي
     - run: flutter build apk --release
 
+    # رفع الـ APK كـ Artifact
     - uses: actions/upload-artifact@v4
-  with:
-    name: app-release
-    path: build/app/outputs/flutter-apk/app-release.apk
+      with:
+        name: app-release
+        path: build/app/outputs/flutter-apk/app-release.apk
